@@ -1,14 +1,4 @@
-function operate(string) {
-  // Detect the operator in the string
-  let operator = '';
-  for(let i = 0; i < string.length; i++) {
-    if(operators.includes(string[i])) {
-      operator = string[i];
-      break;
-    }
-  }
-
-  let [a, b] = string.split(operator);
+function operate(a, operator, b) {
   a = parseInt(a);
   b = parseInt(b);
 
@@ -40,8 +30,11 @@ function divide(a, b ) {
   return a / b;
 }
 
-let display = document.querySelector("#display");
-let result = document.querySelector("#display-result");
+let stack = [];
+let temp = '';
+
+let main = document.querySelector("#main");
+let secondary = document.querySelector("#secondary");
 const buttonsPanel = document.querySelector(".buttons-panel");
 const operators = "÷×−+"
 buttonsPanel.addEventListener('click', event => {
@@ -49,42 +42,54 @@ buttonsPanel.addEventListener('click', event => {
   if(target.classList.value.includes("btn")) {
 
     if(target.id == "clear") {
-      display.textContent = '0';
-      result.textContent = '';
+      main.textContent = '0';
+      secondary.textContent = '';
+      temp = '0';
+      popStack();
     } else {
-      if(display.textContent == '0') display.textContent = '';
-      
+      if(main.textContent == '0') {
+        main.textContent = '';
+        temp = '';
+      }
       if(!isNaN(target.value)) {
-        display.textContent += target.value;
+        main.textContent += target.value;
+        temp += target.value;
       } else if(operators.includes(target.value)) {
 
-        if(operators.includes(display.textContent.at(-1))) {}
-        else {
-          if(display.textContent
-            .split('')
-            .some(item => operators.includes(item))
-          ) {
-            // Operator detected, Operates
-            result.textContent = operate(display.textContent);
-          } else {
-            // No operator detected, add the operator to display
-            display.textContent += target.value;
+        // if(!(stack.length == 2 && temp == '')) {
+        if (!(stack.length == 2 && temp == '')) {
+          stack.push(temp);
+          temp = '';
+          if(stack.length == 3) {
+            startOperate();
+            stack.push(temp);
+            temp = '';
           }
+          main.textContent += target.value;
+          stack.push(target.value);
         }
-
       } else if(target.value == "=") {
         // Operates
-        result.textContent = operate(display.textContent);
+        if(stack.length == 2 && temp != '') {
+          stack.push(temp);
+          startOperate();
+        }
       }
     }
   }
 })
 
-// Once you press an operator, also check if the last letter typed in is an operator
-// If true do nothing
-// If false
-// Once you press an operator
-// Check the whole string if it is containing an operator
-// If false do nothing
-// If true start operating
+function popStack() {
+  while(stack.length > 0) {
+    stack.pop();
+  }
+}
 
+function startOperate() {
+  secondary.textContent = main.textContent;    
+  main.textContent = operate(...stack);
+  popStack();
+  temp = main.textContent;
+}
+
+// After every operator we add temp to the stack
