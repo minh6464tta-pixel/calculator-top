@@ -32,6 +32,7 @@ function divide(a, b ) {
 
 let stack = [];
 let temp = '';
+let isFirstOperation = 1;
 
 let main = document.querySelector("#main");
 let secondary = document.querySelector("#secondary");
@@ -55,11 +56,18 @@ buttonsPanel.addEventListener('click', event => {
           main.textContent = '';
           temp = '';
         }
+        if(!isFirstOperation) {
+          main.textContent = '';
+          temp = '';
+          isFirstOperation = 1;
+        }
         main.textContent += target.value;
         temp += target.value;
+        
       } else if(operators.includes(target.value)) {
-
+        
         if (!(stack.length == 2 && temp == '')) {
+          isFirstOperation = 1;
           stack.push(temp);
           temp = '';
           if(stack.length == 3) {
@@ -75,8 +83,10 @@ buttonsPanel.addEventListener('click', event => {
         if(stack.length == 2 && temp != '') {
           stack.push(temp);
           startOperate();
+          isFirstOperation = 0;
         }
       }
+      
     }
   }
 })
@@ -94,4 +104,3 @@ function startOperate() {
   temp = main.textContent;
 }
 
-// After every operator we add temp to the stack
