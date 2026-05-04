@@ -46,17 +46,19 @@ buttonsPanel.addEventListener('click', event => {
       secondary.textContent = '';
       temp = '0';
       popStack();
+    } else if(target.id == "backspace") {
+      
     } else {
-      if(main.textContent == '0') {
-        main.textContent = '';
-        temp = '';
-      }
+      
       if(!isNaN(target.value)) {
+        if(main.textContent == '0') {
+          main.textContent = '';
+          temp = '';
+        }
         main.textContent += target.value;
         temp += target.value;
       } else if(operators.includes(target.value)) {
 
-        // if(!(stack.length == 2 && temp == '')) {
         if (!(stack.length == 2 && temp == '')) {
           stack.push(temp);
           temp = '';
