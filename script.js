@@ -1,6 +1,6 @@
 function operate(a, operator, b) {
-  a = parseInt(a);
-  b = parseInt(b);
+  a = parseFloat(a);
+  b = parseFloat(b);
 
   switch(operator) {
     case "+":
@@ -44,7 +44,7 @@ buttonsPanel.addEventListener('click', event => {
 
     if(target.id == "clear") {
       main.textContent = '0';
-      secondary.textContent = '';
+      secondary.textContent = '0';
       temp = '0';
       popStack();
     } else if(target.id == "backspace") {
@@ -95,6 +95,11 @@ buttonsPanel.addEventListener('click', event => {
           stack.push(temp);
           startOperate();
           isFirstOperation = 0;
+        }
+      } else if(target.value == ".") {
+        if(!temp.includes(".")) {
+          temp += target.value;
+          main.textContent += target.value;
         }
       }
       
