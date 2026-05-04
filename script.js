@@ -48,7 +48,18 @@ buttonsPanel.addEventListener('click', event => {
       temp = '0';
       popStack();
     } else if(target.id == "backspace") {
-      
+      let lastLetter = main.textContent.at(-1);
+      if(!isNaN(lastLetter)) {
+        temp = temp.slice(0, -1); // Remove the last letter from temp
+      } else if (operators.includes(lastLetter)) {
+        stack.pop();
+        temp = stack.pop();
+      }
+      main.textContent = main.textContent.slice(0, -1);
+      if(main.textContent.length == 0) {
+        main.textContent = '0';
+        temp = 0;
+      }
     } else {
       
       if(!isNaN(target.value)) {
