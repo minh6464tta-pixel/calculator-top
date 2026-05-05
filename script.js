@@ -38,68 +38,28 @@ function divide(a, b ) {
   return a / b;
 }
 
-buttonsPanel.addEventListener('click', function buttonEvent(event) {
-  target = event.target;
+buttonsPanel.addEventListener('click', (event) => {
+  const target = event.target;
   if(target.classList.value.includes("btn")) {
 
-    if(target.id == "clear") {
-
-      clear();
-
-    } else if(target.id == "backspace") {
-
-      backspace();
-
-    } else if(!isNaN(target.value)) {
-      
-      handleNumberInput(target.value);
-
-    } else if(operators.includes(target.value)) {
-        
-      handleOperatorInput(target.value);
-
-    } else if(target.value == "=") {
-
-      handleEqualInput();
-
-    } else if(target.value == ".") {
-
-      handleDecimalPointInput();
-
-    }
+    handleInputs(target.value);
 
   }
 })
 
 document.addEventListener('keydown', (event) => {
-  let value = event.key
-  if(false) {
-
-    clear();
-
-  } else if(value == "Backspace") {
-
-    backspace();
-
-  } else if(!isNaN(value)) {
-    
-    handleNumberInput(value);
-
-  } else if(operators.includes(value)) {
-    
-    if(value == "*") value = "×";
-    if(value == "/") value = "÷";
-    handleOperatorInput(value);
-
-  } else if(value == "Enter") {
-
-    handleEqualInput();
-
-  } else if(value == ".") {
-
-    handleDecimalPointInput();
-
+  
+  const keyboardToClick = {
+    "Enter": "=",
+    "*": "×",
+    "/": "÷",
+    "Backspace": "backspace",
+    "Delete": "clear",
   }
+  const value = keyboardToClick[event.key] ?? event.key;
+
+  handleInputs(value);
+
 })
 
 function popStack() {
@@ -182,3 +142,32 @@ function handleDecimalPointInput() {
   }
 }
 
+function handleInputs(value) {
+
+  if(value == "clear") {
+
+    clear();
+
+  } else if(value == "backspace") {
+
+    backspace();
+
+  } else if(!isNaN(value)) {
+    
+    handleNumberInput(value);
+
+  } else if(operators.includes(value)) {
+      
+    handleOperatorInput(value);
+
+  } else if(value == "=") {
+
+    handleEqualInput();
+
+  } else if(value == ".") {
+
+    handleDecimalPointInput();
+
+  }
+
+}
