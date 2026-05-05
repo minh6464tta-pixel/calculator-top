@@ -4,7 +4,7 @@ let isFirstOperation = 1;
 let main = document.querySelector("#main");
 let secondary = document.querySelector("#secondary");
 const buttonsPanel = document.querySelector(".buttons-panel");
-const operators = "÷×−+";
+const operators = "÷×−+*/";
 
 function operate(a, operator, b) {
   a = parseFloat(a);
@@ -38,7 +38,7 @@ function divide(a, b ) {
   return a / b;
 }
 
-buttonsPanel.addEventListener('click', event => {
+buttonsPanel.addEventListener('click', function buttonEvent(event) {
   target = event.target;
   if(target.classList.value.includes("btn")) {
 
@@ -52,11 +52,11 @@ buttonsPanel.addEventListener('click', event => {
 
     } else if(!isNaN(target.value)) {
       
-      handleNumberInput();
+      handleNumberInput(target.value);
 
     } else if(operators.includes(target.value)) {
         
-      handleOperatorInput();
+      handleOperatorInput(target.value);
 
     } else if(target.value == "=") {
 
@@ -67,6 +67,38 @@ buttonsPanel.addEventListener('click', event => {
       handleDecimalPointInput();
 
     }
+
+  }
+})
+
+document.addEventListener('keydown', (event) => {
+  let value = event.key
+  if(false) {
+
+    clear();
+
+  } else if(value == "Backspace") {
+
+    backspace();
+
+  } else if(!isNaN(value)) {
+    
+    handleNumberInput(value);
+
+  } else if(operators.includes(value)) {
+    
+    if(value == "*") value = "×";
+    if(value == "/") value = "÷";
+    handleOperatorInput(value);
+
+  } else if(value == "Enter") {
+
+    handleEqualInput();
+
+  } else if(value == ".") {
+
+    handleDecimalPointInput();
+
   }
 })
 
@@ -105,7 +137,7 @@ function backspace() {
   }
 }
 
-function handleNumberInput() {
+function handleNumberInput(value) {
   if(main.textContent == '0') {
     main.textContent = '';
     temp = '';
@@ -115,11 +147,11 @@ function handleNumberInput() {
     temp = '';
     isFirstOperation = 1;
   }
-  main.textContent += target.value;
-  temp += target.value;
+  main.textContent += value;
+  temp += value;
 }
 
-function handleOperatorInput() {
+function handleOperatorInput(value) {
   if (!(stack.length == 2 && temp == '')) {
     isFirstOperation = 1;
     stack.push(temp);
@@ -129,8 +161,8 @@ function handleOperatorInput() {
       stack.push(temp);
       temp = '';
     }
-    main.textContent += target.value;
-    stack.push(target.value);
+    main.textContent += value;
+    stack.push(value);
   }
 }
 
@@ -145,7 +177,8 @@ function handleEqualInput() {
 
 function handleDecimalPointInput() {
   if(!temp.includes(".")) {
-    temp += target.value;
-    main.textContent += target.value;
+    temp += ".";
+    main.textContent += ".";
   }
 }
+
