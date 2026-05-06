@@ -94,7 +94,7 @@ function backspace() {
   main.textContent = main.textContent.slice(0, -1);
   if(main.textContent.length == 0) {
     main.textContent = '0';
-    temp = 0;
+    temp = '0';
   }
 }
 
