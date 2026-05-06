@@ -9,18 +9,23 @@ const operators = "÷×−+*/";
 function operate(a, operator, b) {
   a = parseFloat(a);
   b = parseFloat(b);
+  let result;
 
   switch(operator) {
     case "+":
-      return add(a, b);
+      result = add(a, b);
+      break;
     case "−":
-      return subtract(a, b);
+      result = subtract(a, b);
+      break;
     case "×":
-      return multiply(a, b);
+      result = multiply(a, b);
+      break;
     case "÷":
-      return divide(a, b);
+      result = divide(a, b);
   }
 
+  return result || "ERROR";
   
 }
 
