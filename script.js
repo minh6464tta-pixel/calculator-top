@@ -48,7 +48,6 @@ buttonsPanel.addEventListener('click', (event) => {
 })
 
 document.addEventListener('keydown', (event) => {
-  
   const keyboardToClick = {
     "Enter": "=",
     "*": "×",
@@ -113,6 +112,7 @@ function handleNumberInput(value) {
 
 function handleOperatorInput(value) {
   if (!(stack.length == 2 && temp == '')) {
+    // Execute only stack length is not 2 (there's already an operator) or temp is not empty (there's no inputed number)
     isFirstOperation = 1;
     stack.push(temp);
     temp = '';
@@ -152,7 +152,7 @@ function handleInputs(value) {
 
     backspace();
 
-  } else if(!isNaN(value)) {
+  } else if(!Number.isNaN(parseInt(value))) {
     
     handleNumberInput(value);
 
