@@ -1,3 +1,4 @@
+const TEN_TO_THE_14 = Math.pow(10, 14);
 let stack = [];
 let temp = '';
 let isFirstOperation = 1;
@@ -43,7 +44,7 @@ function multiply(a, b) {
 
 function divide(a, b ) {
   if(b == 0) return "ERROR";
-  return a / b;
+  return Math.round(a / b * TEN_TO_THE_14) / TEN_TO_THE_14;
 }
 
 buttonsPanel.addEventListener('click', (event) => {
