@@ -45,6 +45,8 @@ buttonsPanel.addEventListener('click', (event) => {
     handleInputs(target.value);
 
   }
+
+  target.blur();
 })
 
 document.addEventListener('keydown', (event) => {
