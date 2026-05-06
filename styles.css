@@ -13,7 +13,7 @@
 .display-panel {
   text-align: right;
   overflow: hidden;
-  direction: rtl;
+
 }
 
 .rows {
@@ -38,9 +38,7 @@
 }
 
 .display {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  
+ 
   margin: 10px;
   font-size: 48px;
 }
@@ -60,4 +58,20 @@ button:active {
 
 button {
   box-shadow: 3px 3px 3px;
+}
+
+#main-wrap {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+#secondary-wrap {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+#main, #secondary {
+  float: right;
 }
