@@ -20,6 +20,8 @@ function operate(a, operator, b) {
     case "÷":
       return divide(a, b);
   }
+
+  
 }
 
 function add(a, b) {
@@ -35,6 +37,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b ) {
+  if(b == 0) return "ERROR";
   return a / b;
 }
 
@@ -114,6 +117,7 @@ function handleNumberInput(value) {
 }
 
 function handleOperatorInput(value) {
+  if(temp == "ERROR") clear();
   if (!(stack.length == 2 && temp == '')) {
     // Execute only stack length is not 2 (there's already an operator) or temp is not empty (there's no inputed number)
     isFirstOperation = 1;
