@@ -54,6 +54,7 @@ document.addEventListener('keydown', (event) => {
     "Enter": "=",
     "*": "×",
     "/": "÷",
+    "-": "−",
     "Backspace": "backspace",
     "Delete": "clear",
   }
