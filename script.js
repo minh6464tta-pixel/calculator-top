@@ -26,7 +26,7 @@ function operate(a, operator, b) {
       result = divide(a, b);
   }
 
-  return result || "ERROR";
+  return isNaN(result) ? "ERROR" : result;
   
 }
 
